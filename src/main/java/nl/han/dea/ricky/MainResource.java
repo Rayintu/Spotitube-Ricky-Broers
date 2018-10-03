@@ -59,6 +59,10 @@ public class MainResource {
         TempPlaylistCreator creator = new TempPlaylistCreator();
         List<Playlist> playlist = creator.createPlaylists();
         Playlists playlists = new Playlists(playlist, 123445);
-        return Response.status(Response.Status.OK).entity(playlists).build();
+        if (playlists != null) {
+            return Response.status(Response.Status.OK).entity(playlists).build();
+        } else {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
