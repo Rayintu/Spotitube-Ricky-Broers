@@ -1,10 +1,10 @@
-package nl.han.dea.ricky;
+package nl.han.dea.ricky.Response;
 
-public class LoginReturnObject {
+public class UserToken {
     private String token;
     private String user;
 
-    public LoginReturnObject(String token, String user) {
+    public UserToken(String token, String user) {
         this.token = token;
         this.user = user;
 

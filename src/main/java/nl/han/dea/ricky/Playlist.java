@@ -8,29 +8,38 @@ public class Playlist {
     private String id;
     private String name;
     private String owner;
-    private List<Song> tracks = new ArrayList<Song>();
 
-    public Playlist(String id, String name, String owner, List<Song> songs) {
+    private List<Track> tracks = new ArrayList<Track>();
+
+    public Playlist(String id, String name, String owner, List<Track> tracks) {
         this.id = id;
         this.name = name;
         this.owner = owner;
-        this.tracks = songs;
+        this.tracks = tracks;
+    }
+
+    public int getPlaylistLength() {
+        int length = 0;
+        for (Track track : tracks) {
+            length += track.getLength();
+        }
+        return length;
     }
 
     public Playlist() {
 
     }
 
-    public List<Song> addSongToPlaylist(Song song) {
-        tracks.add(song);
+    public List<Track> addSongToPlaylist(Track track) {
+        tracks.add(track);
         return tracks;
     }
 
-    public List<Song> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Song> tracks) {
+    public void setTracks(List<Track> tracks) {
         this.tracks = tracks;
     }
 

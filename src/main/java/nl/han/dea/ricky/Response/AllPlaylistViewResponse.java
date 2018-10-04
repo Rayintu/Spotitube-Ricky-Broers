@@ -1,14 +1,21 @@
-package nl.han.dea.ricky;
+package nl.han.dea.ricky.Response;
+
+import nl.han.dea.ricky.Playlist;
 
 import java.util.List;
 
-public class Playlists {
+public class AllPlaylistViewResponse {
+
     List<Playlist> playlist;
     int length;
 
-    public Playlists(List<Playlist> playlist, int length) {
-        this.length = length;
+    public AllPlaylistViewResponse(List<Playlist> playlist) {
+
         this.playlist = playlist;
+//        this.length = 5000;
+        for (Playlist pList : playlist) {
+            setLength(pList.getPlaylistLength());
+        }
 
     }
 

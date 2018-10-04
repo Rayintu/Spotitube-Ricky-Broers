@@ -1,4 +1,11 @@
-package nl.han.dea.ricky;
+package nl.han.dea.ricky.Resource;
+
+import nl.han.dea.ricky.LoginCredentials;
+import nl.han.dea.ricky.LoginException;
+import nl.han.dea.ricky.Playlist;
+import nl.han.dea.ricky.Response.AllPlaylistViewResponse;
+import nl.han.dea.ricky.Service.LoginService;
+import nl.han.dea.ricky.TempPlaylistCreator;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -7,6 +14,7 @@ import java.util.List;
 
 @Path("/")
 public class MainResource {
+    private String token;
 
 
     @GET
@@ -15,25 +23,17 @@ public class MainResource {
         return "Hello World!";
     }
 
-
-    @GET
-    @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response yeet() {
-        return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-    }
-
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginCredentials creds) {
-        if (creds.getUser().equals("ricky") && creds.getPassword().equals("yeet")) {
-            LoginReturnObject returnObject = new LoginReturnObject("1234-1234-1234", "Ricky Broers");
-            return Response.status(Response.Status.OK).entity(returnObject).build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+        LoginService loginService = new LoginService();
+        try {
+            return Response.status(Response.Status.OK).entity(loginService.login(creds)).build();
+        } catch (LoginException e) {
+            String message = e.getMessage();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(message).build();
         }
     }
 
@@ -58,9 +58,9 @@ public class MainResource {
     public Response test() {
         TempPlaylistCreator creator = new TempPlaylistCreator();
         List<Playlist> playlist = creator.createPlaylists();
-        Playlists playlists = new Playlists(playlist, 123445);
-        if (playlists != null) {
-            return Response.status(Response.Status.OK).entity(playlists).build();
+        AllPlaylistViewResponse allPlaylistViewResponse = new AllPlaylistViewResponse(playlist);
+        if (allPlaylistViewResponse != null) {
+            return Response.status(Response.Status.OK).entity(allPlaylistViewResponse).build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

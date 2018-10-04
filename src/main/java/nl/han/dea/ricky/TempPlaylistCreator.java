@@ -11,26 +11,26 @@ public class TempPlaylistCreator {
     }
 
     public List<Playlist> createPlaylists() {
-        List<Song> songs1 = new ArrayList<Song>();
-        List<Song> songs2 = new ArrayList<Song>();
-        List<Song> songs3 = new ArrayList<Song>();
+        List<Track> songs1 = new ArrayList<Track>();
+        List<Track> songs2 = new ArrayList<Track>();
+        List<Track> songs3 = new ArrayList<Track>();
 
 
-        songs1.add(new Song("Everytime"));
-        songs1.add(new Song("Sunflower"));
-        songs1.add(new Song("losing you"));
+        songs1.add(new Track("Everytime", 300));
+        songs1.add(new Track("Sunflower", 385));
+        songs1.add(new Track("losing you", 229));
         Playlist l1 = new Playlist("1", "indie", "ricky", songs1);
         returnList.add(l1);
 
-        songs2.add(new Song("thunderstruck"));
-        songs2.add(new Song("back in black"));
-        songs2.add(new Song("CQCQ"));
+        songs2.add(new Track("thunderstruck", 3245));
+        songs2.add(new Track("back in black", 22));
+        songs2.add(new Track("CQCQ", 600));
         Playlist l2 = new Playlist("2", "rock", "ricky", songs2);
         returnList.add(l2);
 
-        songs3.add(new Song("Through the fire and the flames"));
-        songs3.add(new Song("Ring of fire"));
-        songs3.add(new Song("Cry thunder"));
+        songs3.add(new Track("Through the fire and the flames", 432));
+        songs3.add(new Track("Ring of fire", 123));
+        songs3.add(new Track("Cry thunder", 782));
         Playlist l3 = new Playlist("3", "power-metal", "ricky", songs3);
         returnList.add(l3);
 
