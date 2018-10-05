@@ -6,25 +6,25 @@ import java.util.List;
 
 public class AllPlaylistViewResponse {
 
-    List<Playlist> playlist;
+    List<Playlist> playlists;
     int length;
 
     public AllPlaylistViewResponse(List<Playlist> playlist) {
 
-        this.playlist = playlist;
-//        this.length = 5000;
-        for (Playlist pList : playlist) {
-            setLength(pList.getPlaylistLength());
-        }
+        this.playlists = playlist;
+        this.length = 5000;
+//        for (Playlist pList : playlist) {
+//            setLength(pList.getPlaylistLength());
+//        }
 
     }
 
     public List<Playlist> getPlaylist() {
-        return playlist;
+        return playlists;
     }
 
     public void setPlaylist(List<Playlist> playlist) {
-        this.playlist = playlist;
+        this.playlists = playlist;
     }
 
     public int getLength() {

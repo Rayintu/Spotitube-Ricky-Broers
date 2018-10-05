@@ -1,5 +1,7 @@
-package nl.han.dea.ricky;
+package nl.han.dea.ricky.Controller;
 
+import nl.han.dea.ricky.Exception.LoginException;
+import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.Service.LoginService;
 
 import javax.ws.rs.Consumes;
@@ -9,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/authenticate")
+@Path("/login")
 public class AuthenticationController {
 
     private LoginService loginService = new LoginService();

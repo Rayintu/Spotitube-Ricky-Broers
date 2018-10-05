@@ -1,5 +1,7 @@
 package nl.han.dea.ricky;
 
+import nl.han.dea.ricky.Controller.AuthenticationController;
+import nl.han.dea.ricky.Exception.LoginException;
 import nl.han.dea.ricky.Response.UserToken;
 import nl.han.dea.ricky.Service.LoginService;
 import org.junit.Test;

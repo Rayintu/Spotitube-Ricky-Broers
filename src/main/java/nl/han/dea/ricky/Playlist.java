@@ -1,53 +1,49 @@
 package nl.han.dea.ricky;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class Playlist {
-    private String id;
+    private int id;
     private String name;
-    private String owner;
+    private boolean owner;
 
-    private List<Track> tracks = new ArrayList<Track>();
+    private Track[] tracks;
 
-    public Playlist(String id, String name, String owner, List<Track> tracks) {
+    public Playlist(int id, String name, boolean owner, Track[] tracks) {
         this.id = id;
         this.name = name;
         this.owner = owner;
         this.tracks = tracks;
     }
 
-    public int getPlaylistLength() {
-        int length = 0;
-        for (Track track : tracks) {
-            length += track.getLength();
-        }
-        return length;
-    }
+//    public int getPlaylistLength() {
+//        int length = 0;
+//        for (Track track : tracks) {
+//            length += track.getLength();
+//        }
+//        return length;
+//    }
 
     public Playlist() {
 
     }
 
-    public List<Track> addSongToPlaylist(Track track) {
-        tracks.add(track);
+//    public List<Track> addSongToPlaylist(Track track) {
+//        tracks.add(track);
+//        return tracks;
+//    }
+
+    public Track[] getTracks() {
         return tracks;
     }
 
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(Track[] tracks) {
         this.tracks = tracks;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -59,11 +55,11 @@ public class Playlist {
         this.name = name;
     }
 
-    public String getOwner() {
+    public boolean getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(boolean owner) {
         this.owner = owner;
     }
 }

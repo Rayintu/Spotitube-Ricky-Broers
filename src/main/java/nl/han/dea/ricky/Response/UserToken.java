@@ -18,5 +18,11 @@ public class UserToken {
         return user;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
 }
