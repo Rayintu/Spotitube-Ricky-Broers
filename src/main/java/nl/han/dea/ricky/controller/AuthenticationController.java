@@ -4,7 +4,6 @@ import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.service.LoginService;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,8 +14,9 @@ import javax.ws.rs.core.Response;
 @Path("/login")
 public class AuthenticationController {
 
-    @Inject
-    LoginService loginService;
+    //    @Inject
+//    LoginService loginService;
+    LoginService loginService = new LoginService();
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

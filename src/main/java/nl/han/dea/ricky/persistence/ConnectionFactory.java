@@ -27,13 +27,13 @@ public class ConnectionFactory {
             databaseProperties = readProperties();
         }
         try {
-//            DriverManager.getConnection("jdbc:mysql://localhost:3306/spotitube",
-////                                                username,password);
-
-            DriverManager.getConnection(
-                    databaseProperties.getProperty("db.url"),
-                    databaseProperties.getProperty("db.user"),
-                    databaseProperties.getProperty("db.password"));
+            DriverManager.getConnection("jdbc:mysql://localhost:3306/spotitube",
+                    username, password);
+//
+//            DriverManager.getConnection(
+//                    databaseProperties.getProperty("db.url"),
+//                    databaseProperties.getProperty("db.user"),
+//                    databaseProperties.getProperty("db.password"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

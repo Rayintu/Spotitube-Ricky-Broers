@@ -22,7 +22,7 @@ public class AccountDAO {
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM ACOUNT")
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.accounts")
 
         ) {
             ResultSet resultSet = statement.executeQuery();

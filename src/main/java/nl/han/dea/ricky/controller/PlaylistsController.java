@@ -1,7 +1,6 @@
 package nl.han.dea.ricky.controller;
 
 import nl.han.dea.ricky.Playlist;
-import nl.han.dea.ricky.StorageFactory;
 import nl.han.dea.ricky.TempPlaylistCreator;
 import nl.han.dea.ricky.response.AllPlaylistViewResponse;
 
@@ -17,12 +16,12 @@ import java.util.List;
 public class PlaylistsController {
 
 
-    StorageFactory storage = new StorageFactory();
-
-    @GET
-    public void setToken() {
-        storage.getInstanceOf();
-    }
+//    StorageFactory storage = new StorageFactory();
+//
+//    @GET
+//    public void setToken() {
+//        storage.getInstanceOf();
+//    }
 
 
     @GET
