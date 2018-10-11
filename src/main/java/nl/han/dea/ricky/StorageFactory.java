@@ -1,7 +1,7 @@
 package nl.han.dea.ricky;
 
-import nl.han.dea.ricky.LocalStorage.LocalTokenStorage;
-import nl.han.dea.ricky.Response.UserToken;
+import nl.han.dea.ricky.localstorage.LocalTokenStorage;
+import nl.han.dea.ricky.response.UserToken;
 
 public class StorageFactory {
     UserToken userToken = new UserToken("1234-1234-1234", "Ricky Broers");

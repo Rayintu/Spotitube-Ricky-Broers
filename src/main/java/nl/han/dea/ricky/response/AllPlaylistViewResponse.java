@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.Response;
+package nl.han.dea.ricky.response;
 
 import nl.han.dea.ricky.Playlist;
 
@@ -9,9 +9,9 @@ public class AllPlaylistViewResponse {
     List<Playlist> playlists;
     int length;
 
-    public AllPlaylistViewResponse(List<Playlist> playlist) {
+    public AllPlaylistViewResponse(List<Playlist> playlists) {
 
-        this.playlists = playlist;
+        this.playlists = playlists;
         this.length = 5000;
 //        for (Playlist pList : playlist) {
 //            setLength(pList.getPlaylistLength());
@@ -19,12 +19,13 @@ public class AllPlaylistViewResponse {
 
     }
 
-    public List<Playlist> getPlaylist() {
+
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 
-    public void setPlaylist(List<Playlist> playlist) {
-        this.playlists = playlist;
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     public int getLength() {

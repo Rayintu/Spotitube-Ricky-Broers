@@ -1,10 +1,10 @@
-package nl.han.dea.ricky.Service;
+package nl.han.dea.ricky.service;
 
-import nl.han.dea.ricky.Exception.LoginException;
-import nl.han.dea.ricky.LocalStorage.LocalTokenStorage;
 import nl.han.dea.ricky.LoginCredentials;
-import nl.han.dea.ricky.Response.UserToken;
 import nl.han.dea.ricky.StorageFactory;
+import nl.han.dea.ricky.exception.LoginException;
+import nl.han.dea.ricky.localstorage.LocalTokenStorage;
+import nl.han.dea.ricky.response.UserToken;
 
 public class LoginService {
     StorageFactory storageFactory = new StorageFactory();

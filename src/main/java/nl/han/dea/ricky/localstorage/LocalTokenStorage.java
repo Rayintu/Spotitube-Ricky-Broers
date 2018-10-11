@@ -1,6 +1,6 @@
-package nl.han.dea.ricky.LocalStorage;
+package nl.han.dea.ricky.localstorage;
 
-import nl.han.dea.ricky.Response.UserToken;
+import nl.han.dea.ricky.response.UserToken;
 
 public class LocalTokenStorage {
     private UserToken token;

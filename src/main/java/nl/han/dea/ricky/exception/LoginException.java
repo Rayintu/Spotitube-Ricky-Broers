@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.Exception;
+package nl.han.dea.ricky.exception;
 
 public class LoginException extends Exception {
     /**

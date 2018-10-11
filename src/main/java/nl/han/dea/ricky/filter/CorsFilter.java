@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.Filter;
+package nl.han.dea.ricky.filter;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.Resource;
+package nl.han.dea.ricky.websiteresource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,9 +26,9 @@ public class MainResource {
 //
 //        return playlists;
 ////        if(playlists != null){
-////            return Response.status(Response.Status.OK).entity(playlists).build();
+////            return response.status(response.Status.OK).entity(playlists).build();
 ////        } else {
-////            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+////            return response.status(response.Status.INTERNAL_SERVER_ERROR).build();
 ////        }
 //    }
 

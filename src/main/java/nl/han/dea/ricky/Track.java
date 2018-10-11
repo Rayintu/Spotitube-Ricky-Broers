@@ -1,34 +1,97 @@
 package nl.han.dea.ricky;
 
+import java.util.Date;
+
 public class Track {
-    private String name;
-    private int length;
+    private int id;
+    private String title;
+    private String performer;
+    private int duration;
+    private String album;
+    private int playcount = 0;
+    private Date publicationDate;
+    private String description;
+    private boolean offlineAvailable = false;
 
-    public Track(String name, int length) {
-        this.name = name;
-        setLength(length);
+    public Track(int id, String title, String performer, int duration, String album, Date publicationDate, String description) {
+        this.id = id;
+        this.title = title;
+        this.performer = performer;
+        this.duration = duration;
+        this.album = album;
+        this.publicationDate = publicationDate;
+        this.description = description;
     }
 
-    public Track() {
-
+    public int getId() {
+        return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
     }
 
-    public int getLength() {
-        return length;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public String getPerformer() {
+        return performer;
     }
 
+    public void setPerformer(String performer) {
+        this.performer = performer;
+    }
 
+    public int getDuration() {
+        return duration;
+    }
 
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public int getPlaycount() {
+        return playcount;
+    }
+
+    public void setPlaycount(int playcount) {
+        this.playcount = playcount;
+    }
+
+    public Date getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isOfflineAvailable() {
+        return offlineAvailable;
+    }
+
+    public void setOfflineAvailable(boolean offlineAvailable) {
+        this.offlineAvailable = offlineAvailable;
+    }
 }

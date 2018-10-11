@@ -1,9 +1,9 @@
-package nl.han.dea.ricky.Controller;
+package nl.han.dea.ricky.controller;
 
 import nl.han.dea.ricky.Playlist;
-import nl.han.dea.ricky.Response.AllPlaylistViewResponse;
 import nl.han.dea.ricky.StorageFactory;
 import nl.han.dea.ricky.TempPlaylistCreator;
+import nl.han.dea.ricky.response.AllPlaylistViewResponse;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,6 +16,7 @@ import java.util.List;
 @Path("/playlists")
 public class PlaylistsController {
 
+
     StorageFactory storage = new StorageFactory();
 
     @GET
@@ -27,10 +28,9 @@ public class PlaylistsController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response viewPlaylists(@QueryParam("token") String token) {
-
         TempPlaylistCreator creator = new TempPlaylistCreator();
-        List<Playlist> playlist = creator.createPlaylists();
-        AllPlaylistViewResponse allPlaylistViewResponse = new AllPlaylistViewResponse(playlist);
+        List<Playlist> playlists = creator.createPlaylists();
+        AllPlaylistViewResponse allPlaylistViewResponse = new AllPlaylistViewResponse(playlists);
         if (allPlaylistViewResponse != null) {
             return Response.status(Response.Status.OK).entity(allPlaylistViewResponse).build();
         } else {

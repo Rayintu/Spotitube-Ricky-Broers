@@ -1,7 +1,7 @@
-package nl.han.dea.ricky.Service;
+package nl.han.dea.ricky.service;
 
-import nl.han.dea.ricky.Exception.LoginException;
 import nl.han.dea.ricky.LoginCredentials;
+import nl.han.dea.ricky.exception.LoginException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

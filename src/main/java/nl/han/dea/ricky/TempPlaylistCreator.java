@@ -1,10 +1,14 @@
 package nl.han.dea.ricky;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TempPlaylistCreator {
     private List<Playlist> returnList = new ArrayList<Playlist>();
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    Date date = new Date();
 
     public TempPlaylistCreator() {
 
@@ -20,15 +24,15 @@ public class TempPlaylistCreator {
 //        songs1.add(new Track("Sunflower", 385));
 //        songs1.add(new Track("losing you", 229));
 
-        Track[] songs1 = new Track[1];
-        Playlist l1 = new Playlist(1, "indie", true, songs1);
+//        Playlist l1 = new Playlist(1, "indie", true, new Track[]{new Track(5,"wtf","Boy Pablo",324,"Soy Pablo",date,"Good song good title")});
+        Playlist l1 = new Playlist(1, "indie", true, new Track[]{});
         returnList.add(l1);
 
 //        songs2.add(new Track("thunderstruck", 3245));
 //        songs2.add(new Track("back in black", 22));
 //        songs2.add(new Track("CQCQ", 600));
-        Track[] songs2 = new Track[1];
-        Playlist l2 = new Playlist(2, "rock", true, songs2);
+
+        Playlist l2 = new Playlist(2, "rock", true, new Track[]{});
         returnList.add(l2);
 
 //        songs3.add(new Track("Through the fire and the flames", 432));

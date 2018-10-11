@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.Response;
+package nl.han.dea.ricky.response;
 
 public class UserToken {
     private String token;
