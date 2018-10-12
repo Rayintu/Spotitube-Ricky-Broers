@@ -1,11 +1,11 @@
 package nl.han.dea.ricky.entity;
 
 public class Account {
-    private String user;
+    private String name;
     private String password;
 
-    public Account(String user, String password) {
-        this.user = user;
+    public Account(String name, String password) {
+        this.name = name;
         this.password = password;
     }
 
@@ -13,7 +13,7 @@ public class Account {
     }
 
     public String getUser() {
-        return user;
+        return name;
     }
 
     public String getPassword() {

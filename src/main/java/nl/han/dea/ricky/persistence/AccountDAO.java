@@ -1,6 +1,9 @@
 package nl.han.dea.ricky.persistence;
 
+import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.entity.Account;
+import nl.han.dea.ricky.exception.LoginException;
+import nl.han.dea.ricky.response.UserToken;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,14 +25,14 @@ public class AccountDAO {
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM spotitube.accounts")
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM ACCOUNTS")
 
         ) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                String user = resultSet.getString("user");
+                String username = resultSet.getString("user");
                 String password = resultSet.getString("password");
-                accounts.add(new Account(user, password));
+                accounts.add(new Account(username, password));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -46,6 +49,58 @@ public class AccountDAO {
             statement.setString(2, account.getPassword());
 
             statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean login(LoginCredentials creds) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM accounts WHERE user = ? AND password = ?")
+
+        ) {
+            statement.setString(1, creds.getUser());
+            statement.setString(2, creds.getPassword());
+
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.next()) {
+                throw new LoginException("Incorrect credentials");
+            } else {
+                return true;
+            }
+
+//            if (resultSet.getString("user").equals(creds.getUser()) && resultSet.getString("password").equals(creds.getPassword())) {
+//                return true;
+//            } else {
+//                throw new LoginException("Incorrect credentials");
+//            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (LoginException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public UserToken getToken(LoginCredentials creds) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement(
+                        "SELECT accounts.full_name, t.token FROM accounts JOIN tokens t on accounts.user = t.user WHERE accounts.user = ?");
+        ) {
+            statement.setString(1, creds.getUser());
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return new UserToken(resultSet.getString("token"), resultSet.getString("full_name"));
+            } else {
+                throw new SQLException();
+            }
+
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

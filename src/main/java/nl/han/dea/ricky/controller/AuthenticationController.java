@@ -14,8 +14,6 @@ import javax.ws.rs.core.Response;
 @Path("/login")
 public class AuthenticationController {
 
-    //    @Inject
-//    LoginService loginService;
     LoginService loginService = new LoginService();
 
     @POST

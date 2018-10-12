@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.databaseconnection;
+package nl.han.dea.ricky.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
