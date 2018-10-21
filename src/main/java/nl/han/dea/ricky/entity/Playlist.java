@@ -1,4 +1,4 @@
-package nl.han.dea.ricky;
+package nl.han.dea.ricky.entity;
 
 public class Playlist {
     private int id;

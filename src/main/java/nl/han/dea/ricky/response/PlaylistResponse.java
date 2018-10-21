@@ -1,15 +1,15 @@
 package nl.han.dea.ricky.response;
 
-import nl.han.dea.ricky.Playlist;
+import nl.han.dea.ricky.entity.Playlist;
 
 import java.util.List;
 
-public class AllPlaylistViewResponse {
+public class PlaylistResponse {
 
     List<Playlist> playlists;
     int length;
 
-    public AllPlaylistViewResponse(List<Playlist> playlists) {
+    public PlaylistResponse(List<Playlist> playlists) {
 
         this.playlists = playlists;
         this.length = 5000;
