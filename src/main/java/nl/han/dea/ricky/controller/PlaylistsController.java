@@ -36,4 +36,14 @@ public class PlaylistsController {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addNewPlaylist(Playlist playlist, @QueryParam("token") String token) {
+        try {
+            return Response.status(Response.Status.OK).entity(playlistService.addNewPlaylist(playlist, token));
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

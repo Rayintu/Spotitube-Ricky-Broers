@@ -86,4 +86,8 @@ public class PlaylistDAO {
         }
 
     }
+
+    public void createNewPlaylist(Playlist playlist, String token) {
+        //TODO
+    }
 }
