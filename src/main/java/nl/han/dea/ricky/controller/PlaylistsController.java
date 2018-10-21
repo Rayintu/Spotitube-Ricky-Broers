@@ -27,6 +27,7 @@ public class PlaylistsController {
 
     @Path("/{id}")
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response editPlaylistName(Playlist playlist, @PathParam("id") int id, @QueryParam("token") String token) {
         try {
@@ -38,10 +39,11 @@ public class PlaylistsController {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNewPlaylist(Playlist playlist, @QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(playlistService.addNewPlaylist(playlist, token));
+            return Response.status(Response.Status.OK).entity(playlistService.addNewPlaylist(playlist, token)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

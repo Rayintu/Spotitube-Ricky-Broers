@@ -88,6 +88,29 @@ public class PlaylistDAO {
     }
 
     public void createNewPlaylist(Playlist playlist, String token) {
-        //TODO
+        String owner = " ";
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement getPlaylistOwnerStatement = connection.prepareStatement("SELECT * FROM tokens WHERE token = ?");
+                PreparedStatement badButNecessaryStatement1 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+                PreparedStatement createPlaylistStatement = connection.prepareStatement("INSERT INTO playlists (name, owner) VALUES (?,?)");
+                PreparedStatement badButNecessaryStatement2 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1")
+        ) {
+
+            getPlaylistOwnerStatement.setString(1, token);
+
+            ResultSet resultSetOwner = getPlaylistOwnerStatement.executeQuery();
+            if (resultSetOwner.next()) {
+                owner = resultSetOwner.getString("user");
+            }
+
+            createPlaylistStatement.setString(1, playlist.getName());
+            createPlaylistStatement.setString(2, owner);
+            badButNecessaryStatement1.execute();
+            createPlaylistStatement.execute();
+            badButNecessaryStatement2.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
