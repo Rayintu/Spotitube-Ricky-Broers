@@ -23,7 +23,7 @@ public class PlaylistDAO {
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT playlists.playlist_id, playlists.name, playlists.tracks, t.user AS ownerusername, t.token AS usertoken " +
+                PreparedStatement statement = connection.prepareStatement("SELECT playlists.playlist_id, playlists.name, t.user AS ownerusername, t.token AS usertoken " +
                         "FROM playlists JOIN tokens t on playlists.owner = t.user WHERE t.token = ?")
         ) {
             statement.setString(1, token);
@@ -39,7 +39,7 @@ public class PlaylistDAO {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return playlists;
     }
@@ -112,5 +112,65 @@ public class PlaylistDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deletePlaylist(int id, String token) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE p FROM playlists p JOIN tokens t ON p.owner = t.user WHERE playlist_id = ? AND t.token = ?");
+        ) {
+            statement.setInt(1, id);
+            statement.setString(2, token);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Track> getAllTracksInPlaylist(int id, String token) {
+        List<Track> tracks = new ArrayList<Track>();
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT tr.*, t.token, p.* FROM playlists p JOIN tokens t on p.owner = t.user JOIN playlist_track_connector ptc on p.playlist_id = ptc.playlist_id JOIN tracks tr on ptc.track_id = tr.track_id WHERE ptc.playlist_id = ?");
+        ) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                tracks.add(
+                        new Track(
+                                resultSet.getInt("track_id"),
+                                resultSet.getString("title"),
+                                resultSet.getString("performer"),
+                                resultSet.getInt("duration"),
+                                resultSet.getString("album"),
+                                resultSet.getDate("publicationDate").toString(),
+                                resultSet.getString("description")
+                        )
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return tracks;
+    }
+
+    public int getTotalLengthOfAllOwnedPlaylistsCombined(List<String> playlistNames) {
+        int length = 0;
+
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("SELECT tr.duration FROM playlists p JOIN playlist_track_connector ptc on p.playlist_id = ptc.playlist_id JOIN tracks tr on ptc.track_id = tr.track_id WHERE p.name = ?;");
+        ) {
+            for (String plName : playlistNames) {
+                statement.setString(1, plName);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    length += resultSet.getInt("duration");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return length;
     }
 }

@@ -1,24 +1,23 @@
 package nl.han.dea.ricky.entity;
 
-import java.util.Date;
-
 public class Track {
     private int id;
     private String title;
     private String performer;
     private int duration;
     private String album;
-    private int playcount = 0;
-    private Date publicationDate;
+    private int playcount;
+    private String publicationDate;
     private String description;
     private boolean offlineAvailable = false;
 
-    public Track(int id, String title, String performer, int duration, String album, Date publicationDate, String description) {
+    public Track(int id, String title, String performer, int duration, String album, String publicationDate, String description) {
         this.id = id;
         this.title = title;
         this.performer = performer;
         this.duration = duration;
         this.album = album;
+        this.playcount = 0;
         this.publicationDate = publicationDate;
         this.description = description;
     }
@@ -71,11 +70,11 @@ public class Track {
         this.playcount = playcount;
     }
 
-    public Date getPublicationDate() {
+    public String getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(String publicationDate) {
         this.publicationDate = publicationDate;
     }
 

@@ -23,8 +23,10 @@ public class TrackController {
         try {
             return Response.status(Response.Status.OK).entity(trackService.getTracks()).build();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
     }
+
+
 }

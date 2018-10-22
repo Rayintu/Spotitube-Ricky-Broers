@@ -32,13 +32,13 @@ public class TrackDAO {
                                 resultSet.getString("performer"),
                                 resultSet.getInt("duration"),
                                 resultSet.getString("album"),
-                                resultSet.getDate("publicationDate"),
+                                resultSet.getDate("publicationDate").toString(),
                                 resultSet.getString("description")
                         )
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return tracks;
     }

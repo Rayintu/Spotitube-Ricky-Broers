@@ -1,6 +1,7 @@
 package nl.han.dea.ricky.controller;
 
 import nl.han.dea.ricky.entity.Playlist;
+import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.service.PlaylistService;
 
 import javax.ws.rs.*;
@@ -33,8 +34,10 @@ public class PlaylistsController {
         try {
             String newPlaylistName = playlist.getName();
             return Response.status(Response.Status.OK).entity(playlistService.editPlaylistName(newPlaylistName, token, id)).build();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } catch (LoginException e) {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
         }
     }
 
@@ -44,7 +47,29 @@ public class PlaylistsController {
     public Response addNewPlaylist(Playlist playlist, @QueryParam("token") String token) {
         try {
             return Response.status(Response.Status.OK).entity(playlistService.addNewPlaylist(playlist, token)).build();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/{id}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
+        try {
+            return Response.status(Response.Status.OK).entity(playlistService.deletePlaylist(id, token)).build();
+        } catch (RuntimeException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @Path("/{id}/tracks")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllTracksInPlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
+        try {
+            return Response.status(Response.Status.OK).entity(playlistService.getAllTracksInPlaylist(id, token)).build();
+        } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }

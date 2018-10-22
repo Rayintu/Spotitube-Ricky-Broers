@@ -4,6 +4,7 @@ import nl.han.dea.ricky.entity.Playlist;
 import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.persistence.PlaylistDAO;
 import nl.han.dea.ricky.response.PlaylistResponse;
+import nl.han.dea.ricky.response.TracksResponse;
 
 import java.util.List;
 
@@ -29,7 +30,22 @@ public class PlaylistService {
         return new PlaylistResponse(getAllPlaylists(token));
     }
 
+    public PlaylistResponse deletePlaylist(int id, String token) {
+        playlistDAO.deletePlaylist(id, token);
+        return new PlaylistResponse(getAllPlaylists(token));
+    }
+
+    public TracksResponse getAllTracksInPlaylist(int id, String token) {
+        return new TracksResponse(playlistDAO.getAllTracksInPlaylist(id, token));
+    }
+
+    public int getTotalLength(List<String> playlistNames) {
+        return playlistDAO.getTotalLengthOfAllOwnedPlaylistsCombined(playlistNames);
+    }
+
     private List<Playlist> getAllPlaylists(String token) {
         return playlistDAO.getAllPlaylistsOnToken(token);
     }
+
+
 }
