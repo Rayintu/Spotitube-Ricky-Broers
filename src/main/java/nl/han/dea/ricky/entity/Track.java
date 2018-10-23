@@ -9,9 +9,12 @@ public class Track {
     private int playcount;
     private String publicationDate;
     private String description;
-    private boolean offlineAvailable = false;
+    private boolean offlineAvailable;
 
-    public Track(int id, String title, String performer, int duration, String album, String publicationDate, String description) {
+    public Track() {
+    }
+
+    public Track(int id, String title, String performer, int duration, String album, int playcount, String publicationDate, String description, boolean offlineAvailable) {
         this.id = id;
         this.title = title;
         this.performer = performer;
@@ -20,6 +23,7 @@ public class Track {
         this.playcount = 0;
         this.publicationDate = publicationDate;
         this.description = description;
+        this.offlineAvailable = offlineAvailable;
     }
 
     public int getId() {

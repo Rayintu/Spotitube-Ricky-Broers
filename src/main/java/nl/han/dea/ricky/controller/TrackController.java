@@ -1,7 +1,8 @@
 package nl.han.dea.ricky.controller;
 
-import nl.han.dea.ricky.service.TrackService;
+import nl.han.dea.ricky.service.ITrackService;
 
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,7 +13,8 @@ import javax.ws.rs.core.Response;
 @Path("/tracks")
 public class TrackController {
 
-    TrackService trackService = new TrackService();
+    @Inject
+    ITrackService ITrackService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -21,7 +23,7 @@ public class TrackController {
             @QueryParam("token") String token) {
 
         try {
-            return Response.status(Response.Status.OK).entity(trackService.getTracks()).build();
+            return Response.status(Response.Status.OK).entity(ITrackService.getTracks(playlistID)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

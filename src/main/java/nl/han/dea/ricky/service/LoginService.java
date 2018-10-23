@@ -5,13 +5,14 @@ import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.persistence.AccountDAO;
 import nl.han.dea.ricky.response.UserToken;
 
-public class LoginService {
+public class LoginService implements ILoginService {
 
     AccountDAO accountDAO = new AccountDAO();
 
     public LoginService() {
     }
 
+    @Override
     public UserToken login(LoginCredentials creds) throws LoginException {
         if (accountDAO.login(creds)) {
             return accountDAO.getToken(creds);

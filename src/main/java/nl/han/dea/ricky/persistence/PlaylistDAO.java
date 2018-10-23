@@ -143,8 +143,10 @@ public class PlaylistDAO {
                                 resultSet.getString("performer"),
                                 resultSet.getInt("duration"),
                                 resultSet.getString("album"),
+                                resultSet.getInt("playcount"),
                                 resultSet.getDate("publicationDate").toString(),
-                                resultSet.getString("description")
+                                resultSet.getString("description"),
+                                false
                         )
                 );
             }
@@ -172,5 +174,36 @@ public class PlaylistDAO {
             throw new RuntimeException(e);
         }
         return length;
+    }
+
+    public void addTrackToPlaylist(int id, Track track) {
+        int trackID = track.getId();
+
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement badButNecessaryStatement1 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 0");
+                PreparedStatement addSongStatement = connection.prepareStatement("INSERT INTO playlist_track_connector (playlist_id, track_id) VALUES (?,?)");
+                PreparedStatement badButNecessaryStatement2 = connection.prepareStatement("SET FOREIGN_KEY_CHECKS = 1")
+        ) {
+
+            addSongStatement.setInt(1, id);
+            addSongStatement.setInt(2, trackID);
+            addSongStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteTrackFromPlaylist(int playlistId, int trackId, String token) {
+        try (
+                Connection connection = connectionFactory.getConnection();
+                PreparedStatement statement = connection.prepareStatement("DELETE FROM playlist_track_connector WHERE playlist_id = ? AND track_id = ?;");
+        ) {
+            statement.setInt(1, playlistId);
+            statement.setInt(2, trackId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

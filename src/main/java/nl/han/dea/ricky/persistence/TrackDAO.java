@@ -16,13 +16,14 @@ public class TrackDAO {
         connectionFactory = new ConnectionFactory();
     }
 
-    public List<Track> getTracks() {
+    public List<Track> getTracks(int playlistID) {
         List<Track> tracks = new ArrayList<Track>();
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM tracks")
+                PreparedStatement statement = connection.prepareStatement("SELECT tr.*, ptc.playlist_id FROM tracks tr JOIN playlist_track_connector ptc on tr.track_id = ptc.track_id WHERE playlist_id <> ?;")
         ) {
+            statement.setInt(1, playlistID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 tracks.add(
@@ -32,8 +33,10 @@ public class TrackDAO {
                                 resultSet.getString("performer"),
                                 resultSet.getInt("duration"),
                                 resultSet.getString("album"),
+                                resultSet.getInt("playcount"),
                                 resultSet.getDate("publicationDate").toString(),
-                                resultSet.getString("description")
+                                resultSet.getString("description"),
+                                false
                         )
                 );
             }

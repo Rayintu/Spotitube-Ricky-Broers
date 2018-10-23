@@ -1,6 +1,7 @@
 package nl.han.dea.ricky.response;
 
 import nl.han.dea.ricky.entity.Playlist;
+import nl.han.dea.ricky.service.IPlaylistService;
 import nl.han.dea.ricky.service.PlaylistService;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class PlaylistResponse {
 
-    PlaylistService playlistService = new PlaylistService();
+    IPlaylistService IPlaylistService = new PlaylistService();
 
     List<String> playlistNames = new ArrayList<String>();
 
@@ -21,7 +22,7 @@ public class PlaylistResponse {
         }
 
         this.playlists = playlists;
-        this.length = playlistService.getTotalLength(playlistNames);
+        this.length = IPlaylistService.getTotalLength(playlistNames);
 //        for (Playlist pList : playlist) {
 //            setLength(pList.getPlaylistLength());
 //        }

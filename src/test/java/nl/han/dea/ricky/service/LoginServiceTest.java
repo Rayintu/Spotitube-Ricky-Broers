@@ -9,20 +9,20 @@ import org.junit.rules.ExpectedException;
 
 public class LoginServiceTest {
 
-    private LoginService loginService;
+    private ILoginService ILoginService;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() {
-        loginService = new LoginService();
+        ILoginService = new LoginService();
     }
 
     @Test
     public void testLoginWithCorrectCredentials() throws LoginException {
         LoginCredentials creds = new LoginCredentials("Ricky", "yeet");
-        loginService.login(creds);
+        ILoginService.login(creds);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class LoginServiceTest {
         thrown.expect(LoginException.class);
         thrown.expectMessage("Incorrect authenticate credentials.");
         LoginCredentials creds = new LoginCredentials("Uwe", "password1234");
-        loginService.login(creds);
+        ILoginService.login(creds);
     }
 
 
