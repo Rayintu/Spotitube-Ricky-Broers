@@ -9,13 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrackDAO {
+public class TrackDAO implements ITrackDAO {
     private ConnectionFactory connectionFactory;
 
     public TrackDAO() {
         connectionFactory = new ConnectionFactory();
     }
 
+    @Override
     public List<Track> getTracks(int playlistID) {
         List<Track> tracks = new ArrayList<Track>();
 

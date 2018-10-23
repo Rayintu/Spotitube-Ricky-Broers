@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class AccountDAO {
+public class AccountDAO implements IAccountDAO {
 
     private ConnectionFactory connectionFactory;
 
@@ -24,6 +24,7 @@ public class AccountDAO {
         connectionFactory = new ConnectionFactory();
     }
 
+    @Override
     public List<Account> getAllAccounts() {
         List<Account> accounts = new ArrayList<>();
 
@@ -44,6 +45,7 @@ public class AccountDAO {
         return accounts;
     }
 
+    @Override
     public void persistAccount(Account account) {
         try (
                 Connection connection = connectionFactory.getConnection();
@@ -58,6 +60,7 @@ public class AccountDAO {
         }
     }
 
+    @Override
     public boolean login(LoginCredentials creds) {
         try (
                 Connection connection = connectionFactory.getConnection();
@@ -89,6 +92,7 @@ public class AccountDAO {
         return false;
     }
 
+    @Override
     public UserToken getToken(LoginCredentials creds) {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

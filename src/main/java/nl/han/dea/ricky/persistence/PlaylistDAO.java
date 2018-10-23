@@ -11,13 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistDAO {
+public class PlaylistDAO implements IPlaylistDAO {
     private ConnectionFactory connectionFactory;
 
     public PlaylistDAO() {
         connectionFactory = new ConnectionFactory();
     }
 
+    @Override
     public List<Playlist> getAllPlaylistsOnToken(String token) {
         List<Playlist> playlists = new ArrayList<Playlist>();
 
@@ -44,6 +45,7 @@ public class PlaylistDAO {
         return playlists;
     }
 
+    @Override
     public void editPlaylistName(String newPlaylistName, String token, int id) throws LoginException {
 
         if (checkIfTokenBelongsToOwner(token, id)) {
@@ -87,6 +89,7 @@ public class PlaylistDAO {
 
     }
 
+    @Override
     public void createNewPlaylist(Playlist playlist, String token) {
         String owner = " ";
         try (
@@ -114,6 +117,7 @@ public class PlaylistDAO {
         }
     }
 
+    @Override
     public void deletePlaylist(int id, String token) {
         try (
                 Connection connection = connectionFactory.getConnection();
@@ -127,6 +131,7 @@ public class PlaylistDAO {
         }
     }
 
+    @Override
     public List<Track> getAllTracksInPlaylist(int id, String token) {
         List<Track> tracks = new ArrayList<Track>();
         try (
@@ -156,6 +161,7 @@ public class PlaylistDAO {
         return tracks;
     }
 
+    @Override
     public int getTotalLengthOfAllOwnedPlaylistsCombined(List<String> playlistNames) {
         int length = 0;
 
@@ -176,6 +182,7 @@ public class PlaylistDAO {
         return length;
     }
 
+    @Override
     public void addTrackToPlaylist(int id, Track track) {
         int trackID = track.getId();
 
@@ -194,6 +201,7 @@ public class PlaylistDAO {
         }
     }
 
+    @Override
     public void deleteTrackFromPlaylist(int playlistId, int trackId, String token) {
         try (
                 Connection connection = connectionFactory.getConnection();
