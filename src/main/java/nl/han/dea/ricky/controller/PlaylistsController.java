@@ -3,6 +3,7 @@ package nl.han.dea.ricky.controller;
 import nl.han.dea.ricky.entity.Playlist;
 import nl.han.dea.ricky.entity.Track;
 import nl.han.dea.ricky.exception.LoginException;
+import nl.han.dea.ricky.response.PlaylistResponse;
 import nl.han.dea.ricky.service.IPlaylistService;
 
 import javax.inject.Inject;
@@ -14,16 +15,18 @@ import javax.ws.rs.core.Response;
 public class PlaylistsController {
 
     @Inject
-    IPlaylistService IPlaylistService;  // = new PlaylistService();
-
+    IPlaylistService playlistService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response viewPlaylists(@QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.getOwnedPlaylists(token)).build();
+
+            PlaylistResponse ownedPlaylists = playlistService.getOwnedPlaylists(token);
+            return Response.status(Response.Status.OK).entity(ownedPlaylists).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
 
     }
@@ -35,7 +38,7 @@ public class PlaylistsController {
     public Response editPlaylistName(Playlist playlist, @PathParam("id") int id, @QueryParam("token") String token) {
         try {
             String newPlaylistName = playlist.getName();
-            return Response.status(Response.Status.OK).entity(IPlaylistService.editPlaylistName(newPlaylistName, token, id)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.editPlaylistName(newPlaylistName, token, id)).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } catch (LoginException e) {
@@ -48,7 +51,7 @@ public class PlaylistsController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addNewPlaylist(Playlist playlist, @QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.addNewPlaylist(playlist, token)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.addNewPlaylist(playlist, token)).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -59,7 +62,7 @@ public class PlaylistsController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deletePlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.deletePlaylist(id, token)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.deletePlaylist(id, token)).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -70,7 +73,7 @@ public class PlaylistsController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTracksInPlaylist(@PathParam("id") int id, @QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.getAllTracksInPlaylist(id, token)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.getAllTracksInPlaylist(id, token)).build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -82,7 +85,7 @@ public class PlaylistsController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTrackToPlaylist(@PathParam("id") int id, @QueryParam("token") String token, Track track) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.addTrackToPlaylist(id, token, track)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.addTrackToPlaylist(id, token, track)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
@@ -94,7 +97,7 @@ public class PlaylistsController {
     public Response removeTrackFromPlaylist(
             @PathParam("playlistId") int playlistId, @PathParam("trackId") int trackId, @QueryParam("token") String token) {
         try {
-            return Response.status(Response.Status.OK).entity(IPlaylistService.deleteTrackFromPlaylist(playlistId, trackId, token)).build();
+            return Response.status(Response.Status.OK).entity(playlistService.deleteTrackFromPlaylist(playlistId, trackId, token)).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

@@ -1,36 +1,40 @@
 package nl.han.dea.ricky.service;
 
-import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.exception.LoginException;
-import org.junit.Before;
+import nl.han.dea.ricky.persistence.IAccountDAO;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class LoginServiceTest {
 
-    private ILoginService ILoginService;
+    @InjectMocks
+    private LoginService loginService;
+
+    @Mock
+    private IAccountDAO accountDAOMock;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    @Before
-    public void setUp() {
-        ILoginService = new LoginService();
-    }
-
     @Test
     public void testLoginWithCorrectCredentials() throws LoginException {
-        LoginCredentials creds = new LoginCredentials("Ricky", "yeet");
-        ILoginService.login(creds);
+        Mockito.when(accountDAOMock.login(Mockito.any())).thenReturn(true);
+        loginService.login(null);
     }
 
     @Test
     public void testThatLoginThrowsLoginExceptionWhenWrongCredentialsAreEntered() throws Exception {
         thrown.expect(LoginException.class);
         thrown.expectMessage("Incorrect authenticate credentials.");
-        LoginCredentials creds = new LoginCredentials("Uwe", "password1234");
-        ILoginService.login(creds);
+        Mockito.when(accountDAOMock.login(Mockito.any())).thenReturn(false);
+        loginService.login(null);
     }
 
 

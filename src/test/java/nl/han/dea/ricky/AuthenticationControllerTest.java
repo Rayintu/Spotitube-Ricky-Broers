@@ -1,6 +1,6 @@
 package nl.han.dea.ricky;
 
-import nl.han.dea.ricky.controller.IAuthenticationController;
+import nl.han.dea.ricky.controller.AuthenticationController;
 import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.response.UserToken;
 import nl.han.dea.ricky.service.ILoginService;
@@ -13,13 +13,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.ws.rs.core.Response;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticationControllerTest {
 
     LoginCredentials creds;
 
     @InjectMocks
-    private IAuthenticationController sut;
+    private AuthenticationController sut;
 
     @Mock
     private ILoginService ILoginServiceMock;

@@ -14,22 +14,9 @@ public class Playlist {
         this.tracks = tracks;
     }
 
-//    public int getPlaylistLength() {
-//        int length = 0;
-//        for (Track track : tracks) {
-//            length += track.getLength();
-//        }
-//        return length;
-//    }
-
     public Playlist() {
 
     }
-
-//    public List<Track> addSongToPlaylist(Track track) {
-//        tracks.add(track);
-//        return tracks;
-//    }
 
     public Track[] getTracks() {
         return tracks;

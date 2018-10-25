@@ -9,19 +9,24 @@ import javax.inject.Inject;
 
 public class LoginService implements ILoginService {
 
-    @Inject
-    IAccountDAO IAccountDAO;
+    private IAccountDAO accountDAO;
 
     public LoginService() {
+
     }
 
     @Override
     public UserToken login(LoginCredentials creds) throws LoginException {
-        if (IAccountDAO.login(creds)) {
-            return IAccountDAO.getToken(creds);
+        if (accountDAO.login(creds)) {
+            return accountDAO.getToken(creds);
 
         } else {
             throw new LoginException("Incorrect authenticate credentials.");
         }
+    }
+
+    @Inject
+    public void setAccountDAO(nl.han.dea.ricky.persistence.IAccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
     }
 }

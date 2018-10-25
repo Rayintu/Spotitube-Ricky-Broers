@@ -22,7 +22,8 @@ public class TrackDAO implements ITrackDAO {
 
         try (
                 Connection connection = connectionFactory.getConnection();
-                PreparedStatement statement = connection.prepareStatement("SELECT tr.*, ptc.playlist_id FROM tracks tr JOIN playlist_track_connector ptc on tr.track_id = ptc.track_id WHERE playlist_id <> ?;")
+                //PreparedStatement statement = connection.prepareStatement("SELECT tr.*, ptc.playlist_id FROM tracks tr JOIN playlist_track_connector ptc on tr.track_id = ptc.track_id WHERE playlist_id <> ?;")
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM tracks WHERE track_id NOT IN (SELECT track_id FROM playlist_track_connector WHERE playlist_id = ?)")
         ) {
             statement.setInt(1, playlistID);
             ResultSet resultSet = statement.executeQuery();
@@ -37,7 +38,7 @@ public class TrackDAO implements ITrackDAO {
                                 resultSet.getInt("playcount"),
                                 resultSet.getDate("publicationDate").toString(),
                                 resultSet.getString("description"),
-                                false
+                                resultSet.getBoolean("offline_available")
                         )
                 );
             }
