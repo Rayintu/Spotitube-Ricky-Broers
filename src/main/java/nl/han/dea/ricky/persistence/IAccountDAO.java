@@ -1,8 +1,8 @@
 package nl.han.dea.ricky.persistence;
 
-import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.entity.Account;
-import nl.han.dea.ricky.response.UserToken;
+import nl.han.dea.ricky.entity.LoginCredentials;
+import nl.han.dea.ricky.entity.UserToken;
 
 import java.util.List;
 

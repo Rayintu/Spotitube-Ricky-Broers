@@ -12,9 +12,7 @@ public class ConnectionFactory {
     private final String password = "yeet";
     private Properties databaseProperties;
 
-
     public ConnectionFactory() {
-        //mogelijk kan deze try catch weg even testen
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -27,9 +25,6 @@ public class ConnectionFactory {
             databaseProperties = readProperties();
         }
         try {
-//            return DriverManager.getConnection("jdbc:mysql://localhost:3306/spotitube",
-//                    username, password);
-//
             return DriverManager.getConnection(
                     databaseProperties.getProperty("db.url"),
                     databaseProperties.getProperty("db.user"),

@@ -1,18 +1,18 @@
-package nl.han.dea.ricky.response;
+package nl.han.dea.ricky.datatransferobjects;
 
 import nl.han.dea.ricky.entity.Track;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TracksResponse {
+public class TracksDTO {
 
     List<Track> tracks = new ArrayList<Track>();
 
-    public TracksResponse() {
+    public TracksDTO() {
     }
 
-    public TracksResponse(List<Track> tracks) {
+    public TracksDTO(List<Track> tracks) {
         this.tracks = tracks;
     }
 

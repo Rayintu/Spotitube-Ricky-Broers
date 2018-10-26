@@ -4,6 +4,7 @@ import nl.han.dea.ricky.entity.Playlist;
 import nl.han.dea.ricky.entity.Track;
 import nl.han.dea.ricky.exception.LoginException;
 
+import javax.enterprise.inject.Default;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Default
 public class PlaylistDAO implements IPlaylistDAO {
     private ConnectionFactory connectionFactory;
 
@@ -47,9 +49,7 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public void editPlaylistName(String newPlaylistName, String token, int id) throws LoginException {
-
         if (checkIfTokenBelongsToOwner(token, id)) {
-
             try (
                     Connection connection = connectionFactory.getConnection();
                     PreparedStatement statement = connection.prepareStatement("UPDATE playlists SET name = ? WHERE playlist_id = ?")
@@ -81,12 +81,9 @@ public class PlaylistDAO implements IPlaylistDAO {
             } else {
                 return false;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (LoginException e) {
+        } catch (SQLException | LoginException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
@@ -162,15 +159,15 @@ public class PlaylistDAO implements IPlaylistDAO {
     }
 
     @Override
-    public int getTotalLengthOfAllOwnedPlaylistsCombined(List<String> playlistNames) {
+    public int getTotalLengthOfAllOwnedPlaylistsCombined(List<Playlist> playlistNames) {
         int length = 0;
 
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT tr.duration FROM playlists p JOIN playlist_track_connector ptc on p.playlist_id = ptc.playlist_id JOIN tracks tr on ptc.track_id = tr.track_id WHERE p.name = ?;");
         ) {
-            for (String plName : playlistNames) {
-                statement.setString(1, plName);
+            for (Playlist playlist : playlistNames) {
+                statement.setString(1, playlist.getName());
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     length += resultSet.getInt("duration");

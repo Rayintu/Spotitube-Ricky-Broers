@@ -1,7 +1,7 @@
 package nl.han.dea.ricky.service;
 
-import nl.han.dea.ricky.response.TracksResponse;
+import nl.han.dea.ricky.datatransferobjects.TracksDTO;
 
 public interface ITrackService {
-    TracksResponse getTracks(int playlistID);
+    TracksDTO getTracks(int playlistID);
 }

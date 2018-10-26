@@ -1,9 +1,9 @@
 package nl.han.dea.ricky.persistence;
 
-import nl.han.dea.ricky.LoginCredentials;
 import nl.han.dea.ricky.entity.Account;
+import nl.han.dea.ricky.entity.LoginCredentials;
+import nl.han.dea.ricky.entity.UserToken;
 import nl.han.dea.ricky.exception.LoginException;
-import nl.han.dea.ricky.response.UserToken;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,6 @@ public class AccountDAO implements IAccountDAO {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM ACCOUNTS")
-
         ) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -65,7 +64,6 @@ public class AccountDAO implements IAccountDAO {
         try (
                 Connection connection = connectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM accounts WHERE user = ? AND password = ?")
-
         ) {
             statement.setString(1, creds.getUser());
             statement.setString(2, creds.getPassword());
@@ -76,14 +74,6 @@ public class AccountDAO implements IAccountDAO {
             } else {
                 return true;
             }
-
-//            if (resultSet.getString("user").equals(creds.getUser()) && resultSet.getString("password").equals(creds.getPassword())) {
-//                return true;
-//            } else {
-//                throw new LoginException("Incorrect credentials");
-//            }
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (LoginException e) {
@@ -124,9 +114,7 @@ public class AccountDAO implements IAccountDAO {
             }
 
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
+        } catch (SQLException | ParseException e) {
             throw new RuntimeException(e);
         }
     }

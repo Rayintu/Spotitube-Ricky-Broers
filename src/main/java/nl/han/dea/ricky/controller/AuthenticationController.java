@@ -1,6 +1,6 @@
 package nl.han.dea.ricky.controller;
 
-import nl.han.dea.ricky.LoginCredentials;
+import nl.han.dea.ricky.entity.LoginCredentials;
 import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.service.ILoginService;
 
@@ -16,14 +16,14 @@ import javax.ws.rs.core.Response;
 public class AuthenticationController {
 
     @Inject
-    ILoginService ILoginService;
+    ILoginService loginService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(LoginCredentials creds) {
         try {
-            return Response.status(Response.Status.CREATED).entity(ILoginService.login(creds)).build();
+            return Response.status(Response.Status.CREATED).entity(loginService.login(creds)).build();
         } catch (LoginException e) {
             String message = e.getMessage();
             return Response.status(Response.Status.UNAUTHORIZED).entity(message).build();

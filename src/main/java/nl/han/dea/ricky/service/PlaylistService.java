@@ -1,75 +1,74 @@
 package nl.han.dea.ricky.service;
 
+import nl.han.dea.ricky.datatransferobjects.PlaylistDTO;
+import nl.han.dea.ricky.datatransferobjects.TracksDTO;
 import nl.han.dea.ricky.entity.Playlist;
 import nl.han.dea.ricky.entity.Track;
 import nl.han.dea.ricky.exception.LoginException;
 import nl.han.dea.ricky.persistence.IPlaylistDAO;
-import nl.han.dea.ricky.persistence.PlaylistDAO;
-import nl.han.dea.ricky.response.PlaylistResponse;
-import nl.han.dea.ricky.response.TracksResponse;
 
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import java.util.List;
 
 @Default
 public class PlaylistService implements IPlaylistService {
 
-//    @Inject
-//    private IPlaylistDAO IPlaylistDAO;
+    @Inject
+    private IPlaylistDAO playlistDAO;
 
-    IPlaylistDAO IPlaylistDAO = new PlaylistDAO();
+//    playlistDAO playlistDAO = new PlaylistDAO();
+
 
     public PlaylistService() {
     }
 
     @Override
-    public PlaylistResponse getOwnedPlaylists(String token) {
-        return new PlaylistResponse(getAllPlaylists(token));
+    public PlaylistDTO getOwnedPlaylists(String token) {
+        return new PlaylistDTO(this.getAllPlaylists(token), this.getTotalLength(this.getAllPlaylists(token)));
     }
 
     @Override
-    public PlaylistResponse editPlaylistName(String newPlaylistName, String token, int id) throws LoginException {
-        IPlaylistDAO.editPlaylistName(newPlaylistName, token, id);
-        return new PlaylistResponse(this.getAllPlaylists(token));
+    public PlaylistDTO editPlaylistName(String newPlaylistName, String token, int id) throws LoginException {
+        playlistDAO.editPlaylistName(newPlaylistName, token, id);
+        return new PlaylistDTO(this.getAllPlaylists(token), this.getTotalLength(this.getAllPlaylists(token)));
     }
 
     @Override
-    public PlaylistResponse addNewPlaylist(Playlist playlist, String token) {
-        IPlaylistDAO.createNewPlaylist(playlist, token);
-        return new PlaylistResponse(this.getAllPlaylists(token));
+    public PlaylistDTO addNewPlaylist(Playlist playlist, String token) {
+        playlistDAO.createNewPlaylist(playlist, token);
+        return new PlaylistDTO(this.getAllPlaylists(token), this.getTotalLength(this.getAllPlaylists(token)));
     }
 
     @Override
-    public PlaylistResponse deletePlaylist(int id, String token) {
-        IPlaylistDAO.deletePlaylist(id, token);
-        return new PlaylistResponse(this.getAllPlaylists(token));
+    public PlaylistDTO deletePlaylist(int id, String token) {
+        playlistDAO.deletePlaylist(id, token);
+        return new PlaylistDTO(this.getAllPlaylists(token), this.getTotalLength(this.getAllPlaylists(token)));
     }
 
     @Override
-    public TracksResponse deleteTrackFromPlaylist(int playlistId, int trackId, String token) {
-        IPlaylistDAO.deleteTrackFromPlaylist(playlistId, trackId, token);
-        return new TracksResponse(IPlaylistDAO.getAllTracksInPlaylist(playlistId, token));
+    public TracksDTO deleteTrackFromPlaylist(int playlistId, int trackId, String token) {
+        playlistDAO.deleteTrackFromPlaylist(playlistId, trackId, token);
+        return new TracksDTO(playlistDAO.getAllTracksInPlaylist(playlistId, token));
     }
 
     @Override
-    public TracksResponse getAllTracksInPlaylist(int id, String token) {
-        return new TracksResponse(IPlaylistDAO.getAllTracksInPlaylist(id, token));
+    public TracksDTO getAllTracksInPlaylist(int id, String token) {
+        return new TracksDTO(playlistDAO.getAllTracksInPlaylist(id, token));
     }
 
     @Override
-    public TracksResponse addTrackToPlaylist(int id, String token, Track track) {
-        IPlaylistDAO.addTrackToPlaylist(id, track);
-        return new TracksResponse(IPlaylistDAO.getAllTracksInPlaylist(id, token));
+    public TracksDTO addTrackToPlaylist(int id, String token, Track track) {
+        playlistDAO.addTrackToPlaylist(id, track);
+        return new TracksDTO(playlistDAO.getAllTracksInPlaylist(id, token));
     }
 
     @Override
-    public int getTotalLength(List<String> playlistNames) {
-        return IPlaylistDAO.getTotalLengthOfAllOwnedPlaylistsCombined(playlistNames);
+    public int getTotalLength(List<Playlist> playlistNames) {
+        return playlistDAO.getTotalLengthOfAllOwnedPlaylistsCombined(playlistNames);
     }
 
     private List<Playlist> getAllPlaylists(String token) {
-        return IPlaylistDAO.getAllPlaylistsOnToken(token);
+        return playlistDAO.getAllPlaylistsOnToken(token);
     }
-
-
 }

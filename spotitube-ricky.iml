@@ -42,5 +42,6 @@
     <orderEntry type="library" name="Maven: org.apache.cxf:cxf-rt-transports-http:3.2.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.12" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:9.0.12" level="project" />
+    <orderEntry type="library" name="Maven: javax:javaee-api:7.0" level="project" />
   </component>
 </module>

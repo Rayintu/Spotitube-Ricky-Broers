@@ -1,4 +1,4 @@
-package nl.han.dea.ricky.response;
+package nl.han.dea.ricky.entity;
 
 public class UserToken {
     private String token;
@@ -7,7 +7,6 @@ public class UserToken {
     public UserToken(String token, String user) {
         this.token = token;
         this.user = user;
-
     }
 
     public String getToken() {

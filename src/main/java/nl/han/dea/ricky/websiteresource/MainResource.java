@@ -7,10 +7,9 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/")
 public class MainResource {
-
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String helloWorld() {
-        return "Hello World!";
+    public String connectionTest() {
+        return "Server started successfully, hello.";
     }
 }

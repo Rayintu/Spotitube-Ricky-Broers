@@ -17,7 +17,7 @@ public interface IPlaylistDAO {
 
     List<Track> getAllTracksInPlaylist(int id, String token);
 
-    int getTotalLengthOfAllOwnedPlaylistsCombined(List<String> playlistNames);
+    int getTotalLengthOfAllOwnedPlaylistsCombined(List<Playlist> playlistNames);
 
     void addTrackToPlaylist(int id, Track track);
 

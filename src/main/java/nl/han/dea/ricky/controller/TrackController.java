@@ -14,22 +14,18 @@ import javax.ws.rs.core.Response;
 public class TrackController {
 
     @Inject
-    ITrackService ITrackService;
+    ITrackService trackService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllTracks(
             @QueryParam("forPlaylist") int playlistID,
             @QueryParam("token") String token) {
-
         try {
-            return Response.status(Response.Status.OK).entity(ITrackService.getTracks(playlistID)).build();
+            return Response.status(Response.Status.OK).entity(trackService.getTracks(playlistID)).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
-
-
 }

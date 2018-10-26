@@ -1,8 +1,9 @@
 package nl.han.dea.ricky;
 
 import nl.han.dea.ricky.controller.AuthenticationController;
+import nl.han.dea.ricky.entity.LoginCredentials;
+import nl.han.dea.ricky.entity.UserToken;
 import nl.han.dea.ricky.exception.LoginException;
-import nl.han.dea.ricky.response.UserToken;
 import nl.han.dea.ricky.service.ILoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,7 @@ public class AuthenticationControllerTest {
 
 
         Mockito.when(ILoginServiceMock.login(creds)).thenReturn(token);
-        assertEquals(Response.Status.OK.getStatusCode(), sut.authenticate(creds).getStatus());
+        assertEquals(Response.Status.CREATED.getStatusCode(), sut.authenticate(creds).getStatus());
 
     }
 
