@@ -23,10 +23,13 @@ public class AuthenticationController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(LoginCredentials creds) {
         try {
-            return Response.status(Response.Status.OK).entity(ILoginService.login(creds)).build();
+            return Response.status(Response.Status.CREATED).entity(ILoginService.login(creds)).build();
         } catch (LoginException e) {
             String message = e.getMessage();
             return Response.status(Response.Status.UNAUTHORIZED).entity(message).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
     }
 }

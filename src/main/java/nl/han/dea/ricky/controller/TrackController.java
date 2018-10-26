@@ -25,7 +25,8 @@ public class TrackController {
         try {
             return Response.status(Response.Status.OK).entity(ITrackService.getTracks(playlistID)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
 
     }
