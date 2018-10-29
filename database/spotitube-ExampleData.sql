@@ -1,5 +1,25 @@
 DELETE FROM tracks;
 
+TRUNCATE TABLE playlists;
+TRUNCATE TABLE tracks;
+
+
+/*
+USERS
+ */
+INSERT INTO accounts (user, password, full_name)
+VALUES ('uwe', 'uwepass', 'Uwe van Heesch');
+INSERT INTO accounts (user, password, full_name)
+VALUES ('ricky', 'rickypass', 'Ricky Broers');
+
+
+/*
+PLAYLISTS
+ */
+INSERT INTO playlists (name, owner)
+VALUES ('Awesome indie', 'ricky');
+INSERT INTO playlists (name, owner)
+VALUES ('Uwe songs', 'ricky');
 
 /*
 TRACKS
@@ -29,5 +49,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO playlist_track_connector (playlist_id, track_id) VALUES (1, 5);
 INSERT INTO playlist_track_connector (playlist_id, track_id) VALUES (1, 6);
+INSERT INTO playlist_track_connector (playlist_id, track_id)
+VALUES (2, 5);
+INSERT INTO playlist_track_connector (playlist_id, track_id)
+VALUES (2, 6);
 
 SET FOREIGN_KEY_CHECKS = 1;

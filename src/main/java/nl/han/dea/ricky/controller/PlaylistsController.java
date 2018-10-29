@@ -1,6 +1,5 @@
 package nl.han.dea.ricky.controller;
 
-import nl.han.dea.ricky.datatransferobjects.PlaylistDTO;
 import nl.han.dea.ricky.entity.Playlist;
 import nl.han.dea.ricky.entity.Track;
 import nl.han.dea.ricky.exception.LoginException;
@@ -21,8 +20,7 @@ public class PlaylistsController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response viewPlaylists(@QueryParam("token") String token) {
         try {
-            PlaylistDTO ownedPlaylists = playlistService.getOwnedPlaylists(token);
-            return Response.status(Response.Status.OK).entity(ownedPlaylists).build();
+            return Response.status(Response.Status.OK).entity(playlistService.getOwnedPlaylists(token)).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
